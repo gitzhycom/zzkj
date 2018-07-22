@@ -2,7 +2,6 @@ import org.junit.Test;
 
 import java.util.Scanner;
 
-
 public class Hello {
     /**
      *
@@ -10,18 +9,17 @@ public class Hello {
      *1.将方向ESWN换为1234，方便编程
      *2.如果输入命令超出火星高原的长宽则让小车最后接触边界点位置
      */
-    private Scanner scanner = new Scanner(System.in);
-    private final Integer X;
-    private final Integer Y;
-    {
+    private static Scanner scanner = new Scanner(System.in);
+    private static Integer X;
+    private static Integer Y;
+    static{
         System.out.println("火星高原的左下角坐标为(0,0),右上角坐标为:'格式--> x y 请指定:'");
         String location = scanner.nextLine();
         String[] split = location.split(" ");
         X = getIntByString(split[0]);
         Y = getIntByString(split[1]);
     }
-    @Test
-    public void test(){
+    public static void main(String[] args){
         System.out.println("请输入漫游车 1 的起始位置：（格式:x y E）");
         String location1 = scanner.nextLine();
         System.out.println("请输入漫游车 1 需要完成的命令：（格式:LRM这三个字母的组合）");
@@ -36,7 +34,7 @@ public class Hello {
         System.out.println("漫游车 2 的开始执行。。");
         myRun(location2,command2);
     }
-    public void myRun(String location,String command){
+    public static void myRun(String location,String command){
         String[] split = location.split(" ");
         if(split.length == 3 && split[2].length() == 1
                 && "ESWN".contains(split[2])){
@@ -61,7 +59,7 @@ public class Hello {
      * @param command
      * @return
      */
-    public String move(Integer x,Integer y,Integer num,String command){
+    public static String move(Integer x,Integer y,Integer num,String command){
         if(x <= X && y <= Y){
             for (int i=0;i<command.length();i++) {
                 if("L".equals(command.charAt(i)+"")){
@@ -102,7 +100,7 @@ public class Hello {
         }
         return "输入不合理，请检查。。";
     }
-    public String getDirection(Integer num){
+    public static String getDirection(Integer num){
         String direction=null;
         switch (num) {
             case 1:
@@ -125,7 +123,7 @@ public class Hello {
      * @param direction
      * @return
      */
-    public Integer getNum(String direction){
+    public static Integer getNum(String direction){
         Integer num=null;
         switch (direction) {
             case "E":
@@ -148,7 +146,7 @@ public class Hello {
      * @param s
      * @return
      */
-    public Integer getIntByString(String s){
+    public static Integer getIntByString(String s){
         return Integer.valueOf(s);
     }
 }
